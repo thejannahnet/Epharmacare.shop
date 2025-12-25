@@ -162,9 +162,9 @@ export default function Home() {
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
-              className="flex-1 relative"
+              className="flex-1 relative w-full lg:w-auto mt-12 lg:mt-0"
             >
-              <div className="relative aspect-[4/5] lg:aspect-square overflow-visible flex items-center justify-center">
+              <div className="relative w-[80%] aspect-square max-w-[280px] mx-auto lg:w-full lg:max-w-none lg:aspect-square overflow-visible flex items-center justify-center">
                 <InteractiveCapsule />
               </div>
               <div className="absolute -bottom-10 -left-10 bg-white p-10 rounded-xl shadow-2xl border border-border/50 hidden xl:block">
