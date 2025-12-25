@@ -1,23 +1,43 @@
 @import "tailwindcss";
 
 @theme {
-  --color-primary: #0ea5e9;
+  --color-background: #fafafa;
+  --color-foreground: #111111;
+  --color-primary: #000000;
   --color-primary-foreground: #ffffff;
-  --color-secondary: #f1f5f9;
-  --color-secondary-foreground: #0f172a;
-  --color-accent: #f59e0b;
+  --color-secondary: #f1f1f1;
+  --color-secondary-foreground: #000000;
+  --color-accent: #c5a059;
   --color-accent-foreground: #ffffff;
-  --color-background: #ffffff;
-  --color-foreground: #0f172a;
+  --color-muted: #f1f1f1;
+  --color-muted-foreground: #666666;
   --color-card: #ffffff;
-  --color-card-foreground: #0f172a;
-  --color-border: #e2e8f0;
+  --color-card-foreground: #111111;
+  --color-border: #e2e2e2;
+  --color-input: #e2e2e2;
+  --color-ring: #c5a059;
 }
 
 @layer base {
   body {
+    @apply font-sans text-primary antialiased;
+    font-weight: 500;
     background-color: var(--color-background);
     color: var(--color-foreground);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-serif font-bold;
+    letter-spacing: -0.02em;
+  }
+
+  p {
+    @apply font-medium;
   }
 }
 
