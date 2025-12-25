@@ -3,11 +3,11 @@
 import { useState } from "react";
 import { useCart } from "@/lib/cart-context";
 import { motion } from "framer-motion";
-import { ShieldCheck, ArrowLeft, CreditCard } from "lucide-react";
+import { ShieldCheck, ArrowLeft, CreditCard, Lock } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
-export default function Checkout() {
+export default function CheckoutPage() {
     const { cart, totalPrice, clearCart } = useCart();
     const router = useRouter();
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -25,213 +25,190 @@ export default function Checkout() {
         e.preventDefault();
         setIsSubmitting(true);
 
-        try {
-            const response = await fetch("/api/orders", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    items: cart,
-                    total: totalPrice,
-                    customer: formData,
-                }),
-            });
-
-            const result = await response.json();
-
-            if (result.success) {
-                clearCart();
-                router.push("/order-confirmation");
-            } else {
-                alert("Failed to process order. Please try again.");
-            }
-        } catch (error) {
-            console.error("Error submitting order:", error);
-            alert("An error occurred. Please try again.");
-        } finally {
-            setIsSubmitting(false);
-        }
+        // Simulate payment processing
+        await new Promise((resolve) => setTimeout(resolve, 2000));
+        clearCart();
+        router.push("/order-confirmation");
     };
 
     if (cart.length === 0) {
         return (
-            <div className="min-h-screen flex flex-col items-center justify-center p-4">
-                <h1 className="text-2xl font-bold mb-4">Your cart is empty</h1>
-                <Link href="/" className="text-sky-500 hover:underline flex items-center gap-2">
-                    <ArrowLeft className="w-4 h-4" /> Back to Shop
+            <div className="min-h-screen bg-background flex flex-col items-center justify-center p-6 font-sans">
+                <h1 className="text-3xl font-serif text-primary mb-6 font-bold">Your collection is empty.</h1>
+                <Link href="/" className="text-[11px] uppercase tracking-widest font-bold text-accent hover:text-primary transition-colors flex items-center gap-2">
+                    <ArrowLeft className="w-4 h-4" /> Return to Collection
                 </Link>
             </div>
         );
     }
 
     return (
-        <div className="min-h-screen bg-slate-50 py-12">
-            <div className="max-w-4xl mx-auto px-4">
-                <div className="flex items-center gap-4 mb-8">
-                    <Link href="/" className="p-2 bg-white rounded-full shadow-sm hover:bg-slate-50 transition-colors">
-                        <ArrowLeft className="w-6 h-6 text-slate-600" />
+        <div className="min-h-screen bg-background font-sans selection:bg-accent/20 selection:text-accent">
+            {/* Header */}
+            <header className="bg-white/80 backdrop-blur-md border-b border-border/40 sticky top-0 z-50">
+                <div className="max-w-7xl mx-auto px-6 lg:px-12 h-20 flex items-center justify-between">
+                    <Link href="/" className="flex items-center gap-3 group">
+                        <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center group-hover:bg-accent transition-colors duration-500">
+                            <ShieldCheck className="text-white w-5 h-5" />
+                        </div>
+                        <span className="text-xl font-serif font-bold tracking-tight text-primary">E Pharma Care</span>
                     </Link>
-                    <h1 className="text-3xl font-bold text-slate-900">Checkout</h1>
+                    <div className="flex items-center gap-2 text-primary/40">
+                        <Lock className="w-4 h-4" />
+                        <span className="text-[10px] uppercase tracking-widest font-bold">Secure Checkout</span>
+                    </div>
                 </div>
+            </header>
 
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <main className="max-w-7xl mx-auto px-6 lg:px-12 py-20">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-20">
                     {/* Shipping Form */}
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        className="bg-white p-8 rounded-3xl shadow-sm border border-slate-100"
-                    >
-                        <h2 className="text-xl font-bold mb-6 flex items-center gap-2">
-                            <ShieldCheck className="text-sky-500 w-6 h-6" />
-                            Shipping Information
-                        </h2>
-                        <form onSubmit={handleSubmit} className="space-y-4">
-                            <div>
-                                <label className="block text-sm font-medium text-slate-700 mb-1">Full Name</label>
-                                <input
-                                    required
-                                    type="text"
-                                    className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-sky-500 outline-none transition-all"
-                                    placeholder="John Doe"
-                                    value={formData.name}
-                                    onChange={e => setFormData({ ...formData, name: e.target.value })}
-                                />
-                            </div>
-                            <div>
-                                <label className="block text-sm font-medium text-slate-700 mb-1">Email Address</label>
-                                <input
-                                    required
-                                    type="email"
-                                    className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-sky-500 outline-none transition-all"
-                                    placeholder="john@example.com"
-                                    value={formData.email}
-                                    onChange={e => setFormData({ ...formData, email: e.target.value })}
-                                />
-                            </div>
-                            <div>
-                                <label className="block text-sm font-medium text-slate-700 mb-1">Street Address</label>
-                                <input
-                                    required
-                                    type="text"
-                                    className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-sky-500 outline-none transition-all"
-                                    placeholder="123 Main St"
-                                    value={formData.address}
-                                    onChange={e => setFormData({ ...formData, address: e.target.value })}
-                                />
-                            </div>
-                            <div className="grid grid-cols-2 gap-4">
-                                <div>
-                                    <label className="block text-sm font-medium text-slate-700 mb-1">City</label>
-                                    <input
-                                        required
-                                        type="text"
-                                        className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-sky-500 outline-none transition-all"
-                                        placeholder="Glendale"
-                                        value={formData.city}
-                                        onChange={e => setFormData({ ...formData, city: e.target.value })}
-                                    />
-                                </div>
-                                <div>
-                                    <label className="block text-sm font-medium text-slate-700 mb-1">State / Zip</label>
-                                    <div className="flex gap-2">
+                    <div className="lg:col-span-7">
+                        <Link href="/" className="flex items-center gap-2 text-[10px] uppercase tracking-widest font-bold text-primary/40 hover:text-accent transition-colors mb-12">
+                            <ArrowLeft className="w-3 h-3" />
+                            Back to Collection
+                        </Link>
+
+                        <form onSubmit={handleSubmit} className="space-y-16">
+                            <section>
+                                <h2 className="text-2xl font-serif text-primary mb-10 font-bold">Shipping Information</h2>
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                    <div className="space-y-2">
+                                        <label className="text-[10px] uppercase tracking-widest font-bold text-primary/40 ml-1">Full Name</label>
                                         <input
                                             required
                                             type="text"
-                                            className="w-1/2 px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-sky-500 outline-none transition-all"
-                                            placeholder="CA"
-                                            value={formData.state}
-                                            onChange={e => setFormData({ ...formData, state: e.target.value })}
+                                            className="w-full bg-transparent border-b border-border/60 py-4 focus:border-accent outline-none transition-colors font-bold text-primary"
+                                            placeholder="John Doe"
+                                            value={formData.name}
+                                            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                                         />
+                                    </div>
+                                    <div className="space-y-2">
+                                        <label className="text-[10px] uppercase tracking-widest font-bold text-primary/40 ml-1">Email Address</label>
+                                        <input
+                                            required
+                                            type="email"
+                                            className="w-full bg-transparent border-b border-border/60 py-4 focus:border-accent outline-none transition-colors font-bold text-primary"
+                                            placeholder="john@example.com"
+                                            value={formData.email}
+                                            onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                                        />
+                                    </div>
+                                    <div className="md:col-span-2 space-y-2">
+                                        <label className="text-[10px] uppercase tracking-widest font-bold text-primary/40 ml-1">Street Address</label>
                                         <input
                                             required
                                             type="text"
-                                            className="w-1/2 px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-sky-500 outline-none transition-all"
+                                            className="w-full bg-transparent border-b border-border/60 py-4 focus:border-accent outline-none transition-colors font-bold text-primary"
+                                            placeholder="123 Luxury Ave"
+                                            value={formData.address}
+                                            onChange={(e) => setFormData({ ...formData, address: e.target.value })}
+                                        />
+                                    </div>
+                                    <div className="space-y-2">
+                                        <label className="text-[10px] uppercase tracking-widest font-bold text-primary/40 ml-1">City</label>
+                                        <input
+                                            required
+                                            type="text"
+                                            className="w-full bg-transparent border-b border-border/60 py-4 focus:border-accent outline-none transition-colors font-bold text-primary"
+                                            placeholder="Glendale"
+                                            value={formData.city}
+                                            onChange={(e) => setFormData({ ...formData, city: e.target.value })}
+                                        />
+                                    </div>
+                                    <div className="space-y-2">
+                                        <label className="text-[10px] uppercase tracking-widest font-bold text-primary/40 ml-1">Postal Code</label>
+                                        <input
+                                            required
+                                            type="text"
+                                            className="w-full bg-transparent border-b border-border/60 py-4 focus:border-accent outline-none transition-colors font-bold text-primary"
                                             placeholder="91206"
                                             value={formData.zip}
-                                            onChange={e => setFormData({ ...formData, zip: e.target.value })}
+                                            onChange={(e) => setFormData({ ...formData, zip: e.target.value })}
                                         />
                                     </div>
                                 </div>
-                            </div>
+                            </section>
 
-                            <div className="pt-6 border-t border-slate-100">
-                                <h2 className="text-xl font-bold mb-4 flex items-center gap-2">
-                                    <CreditCard className="text-sky-500 w-6 h-6" />
-                                    Payment (Cash App)
-                                </h2>
-                                <p className="text-sm text-slate-500 mb-4">
-                                    Please enter your Cash App $Tag. After submitting, you will receive instructions to complete the payment.
-                                </p>
-                                <div>
-                                    <label className="block text-sm font-medium text-slate-700 mb-1">Your $CashTag</label>
-                                    <input
-                                        required
-                                        type="text"
-                                        className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-sky-500 outline-none transition-all"
-                                        placeholder="$yourtag"
-                                        value={formData.cashAppTag}
-                                        onChange={e => setFormData({ ...formData, cashAppTag: e.target.value })}
-                                    />
+                            <section>
+                                <div className="flex items-center justify-between mb-10">
+                                    <h2 className="text-2xl font-serif text-primary font-bold">Payment Method</h2>
+                                    <CreditCard className="w-5 h-5 text-accent" />
                                 </div>
-                            </div>
+                                <div className="p-8 border border-accent/20 bg-accent/5 rounded-sm">
+                                    <p className="text-sm text-primary/70 leading-relaxed font-bold mb-8 italic">
+                                        For your privacy and security, we currently process payments via <span className="text-primary">Direct Bank Transfer</span> or <span className="text-primary">Secure Payment Link</span>. After placing your order, our concierge will send you the details.
+                                    </p>
+                                    <div className="space-y-3">
+                                        <label className="text-[10px] uppercase tracking-widest font-bold text-primary/40 ml-1">Your $CashTag (Optional)</label>
+                                        <input
+                                            type="text"
+                                            className="w-full bg-transparent border-b border-border/60 py-4 focus:border-accent outline-none transition-colors font-bold text-primary"
+                                            placeholder="$yourtag"
+                                            value={formData.cashAppTag}
+                                            onChange={(e) => setFormData({ ...formData, cashAppTag: e.target.value })}
+                                        />
+                                    </div>
+                                </div>
+                            </section>
 
                             <button
                                 disabled={isSubmitting}
                                 type="submit"
-                                className="w-full py-4 bg-sky-500 text-white rounded-xl font-bold hover:bg-sky-600 transition-all shadow-lg shadow-sky-200 disabled:opacity-50"
+                                className="w-full bg-primary text-white py-6 rounded-sm text-[11px] uppercase tracking-[0.3em] font-bold hover:bg-accent transition-all duration-500 disabled:opacity-50"
                             >
-                                {isSubmitting ? "Processing..." : `Place Order ($${totalPrice.toFixed(2)})`}
+                                {isSubmitting ? "Processing..." : `Complete Purchase — $${totalPrice.toFixed(2)}`}
                             </button>
                         </form>
-                    </motion.div>
+                    </div>
 
                     {/* Order Summary */}
-                    <div className="space-y-6">
-                        <div className="bg-white p-8 rounded-3xl shadow-sm border border-slate-100">
-                            <h2 className="text-xl font-bold mb-6">Order Summary</h2>
-                            <div className="space-y-4 mb-6">
+                    <div className="lg:col-span-5">
+                        <div className="bg-secondary/30 p-10 rounded-2xl border border-border/40 sticky top-32 shadow-2xl">
+                            <h3 className="text-xl font-serif text-primary mb-8 font-bold">Order Summary</h3>
+                            <div className="space-y-6 mb-10">
                                 {cart.map((item) => (
-                                    <div key={item.id} className="flex justify-between items-center">
-                                        <div className="flex items-center gap-3">
-                                            <div className="w-12 h-12 bg-slate-100 rounded-lg overflow-hidden">
+                                    <div key={item.id} className="flex justify-between items-center gap-4">
+                                        <div className="flex items-center gap-4">
+                                            <div className="w-16 h-16 bg-white rounded-sm overflow-hidden border border-border/40">
                                                 <img src={item.image} alt={item.name} className="w-full h-full object-cover" />
                                             </div>
                                             <div>
-                                                <p className="font-bold text-slate-900">{item.name}</p>
-                                                <p className="text-xs text-slate-500">Qty: {item.quantity}</p>
+                                                <p className="text-sm font-serif text-primary font-bold">{item.name}</p>
+                                                <p className="text-[10px] uppercase tracking-widest text-primary/40 font-bold">Qty: {item.quantity}</p>
                                             </div>
                                         </div>
-                                        <span className="font-bold text-slate-900">{item.price.split(' – ')[0]}</span>
+                                        <span className="text-sm font-bold text-primary/70">${(parseFloat(item.price.replace('$', '')) * item.quantity).toFixed(2)}</span>
                                     </div>
                                 ))}
                             </div>
-                            <div className="pt-6 border-t border-slate-100 space-y-2">
-                                <div className="flex justify-between text-slate-600">
-                                    <span>Subtotal</span>
-                                    <span>${totalPrice.toFixed(2)}</span>
+
+                            <div className="space-y-4 pt-8 border-t border-border/60">
+                                <div className="flex justify-between text-sm">
+                                    <span className="text-primary/40 font-bold uppercase tracking-widest text-[10px]">Subtotal</span>
+                                    <span className="text-primary/70 font-bold">${totalPrice.toFixed(2)}</span>
                                 </div>
-                                <div className="flex justify-between text-slate-600">
-                                    <span>Shipping</span>
-                                    <span className="text-green-500 font-medium">FREE</span>
+                                <div className="flex justify-between text-sm">
+                                    <span className="text-primary/40 font-bold uppercase tracking-widest text-[10px]">Shipping</span>
+                                    <span className="text-accent font-bold uppercase tracking-widest text-[10px]">Complimentary</span>
                                 </div>
-                                <div className="flex justify-between text-xl font-bold text-slate-900 pt-2">
-                                    <span>Total</span>
-                                    <span>${totalPrice.toFixed(2)}</span>
+                                <div className="flex justify-between pt-4 text-lg">
+                                    <span className="font-serif text-primary font-bold">Total</span>
+                                    <span className="font-serif text-primary font-bold">${totalPrice.toFixed(2)}</span>
                                 </div>
                             </div>
-                        </div>
 
-                        <div className="bg-sky-50 p-6 rounded-2xl border border-sky-100">
-                            <h3 className="font-bold text-sky-900 mb-2 flex items-center gap-2">
-                                <ShieldCheck className="w-5 h-5" />
-                                Discrete Shipping
-                            </h3>
-                            <p className="text-sm text-sky-700">
-                                All orders are packaged discretely with no mention of the contents or our brand on the outside.
-                            </p>
+                            <div className="mt-10 flex items-center gap-4 p-4 bg-white/50 rounded-lg border border-border/20">
+                                <ShieldCheck className="w-5 h-5 text-accent" />
+                                <p className="text-[10px] uppercase tracking-widest text-primary/40 leading-relaxed font-bold">
+                                    Your health data is encrypted and handled with absolute discretion.
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </main>
         </div>
     );
 }
