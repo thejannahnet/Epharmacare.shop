@@ -2,13 +2,14 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Mail, Phone, MapPin, Send, ShieldCheck, ShoppingCart } from "lucide-react";
+import { Mail, Phone, MapPin, Send, ShieldCheck, ShoppingCart, Menu, X } from "lucide-react";
 import Link from "next/link";
 import { useCart } from "@/lib/cart-context";
 import CartDrawer from "@/components/CartDrawer";
 
 export default function ContactPage() {
     const [isCartOpen, setIsCartOpen] = useState(false);
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
     const { totalItems } = useCart();
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [submitted, setSubmitted] = useState(false);
@@ -16,203 +17,241 @@ export default function ContactPage() {
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setIsSubmitting(true);
-
-        // Simulate API call
-        await new Promise(resolve => setTimeout(resolve, 1500));
-
+        await new Promise((resolve) => setTimeout(resolve, 1500));
         setIsSubmitting(false);
         setSubmitted(true);
     };
 
     return (
-        <div className="min-h-screen bg-slate-50">
+        <div className="min-h-screen bg-background font-sans selection:bg-accent/20 selection:text-accent">
             <CartDrawer isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
 
             {/* Navigation */}
-            <nav className="fixed top-0 w-full z-50 glass border-b">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-                    <Link href="/" className="flex items-center gap-2">
-                        <div className="w-10 h-10 bg-sky-500 rounded-lg flex items-center justify-center">
-                            <ShieldCheck className="text-white w-6 h-6" />
+            <nav className="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-md border-b border-border/40">
+                <div className="max-w-7xl mx-auto px-6 lg:px-12 h-20 flex items-center justify-between">
+                    <Link href="/" className="flex items-center gap-3">
+                        <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
+                            <ShieldCheck className="text-white w-5 h-5" />
                         </div>
-                        <span className="text-xl font-bold text-slate-900">E Pharma Care</span>
+                        <span className="text-xl font-serif font-bold tracking-tight text-primary">E Pharma Care</span>
                     </Link>
-                    <div className="hidden md:flex items-center gap-8 text-slate-600 font-medium">
-                        <Link href="/" className="hover:text-sky-500 transition-colors">Home</Link>
-                        <Link href="/#products" className="hover:text-sky-500 transition-colors">Products</Link>
-                        <Link href="/contact" className="text-sky-500 font-bold">Contact</Link>
+
+                    <div className="hidden md:flex items-center gap-10 text-[13px] uppercase tracking-[0.2em] font-bold text-primary/60">
+                        <Link href="/" className="hover:text-accent transition-colors">Home</Link>
+                        <Link href="/#products" className="hover:text-accent transition-colors">Collection</Link>
+                        <Link href="/#story" className="hover:text-accent transition-colors">Our Story</Link>
+                        <Link href="/contact" className="text-accent">Contact</Link>
                     </div>
-                    <div className="flex items-center gap-4">
+
+                    <div className="flex items-center gap-6">
                         <button
                             onClick={() => setIsCartOpen(true)}
-                            className="p-2 relative text-slate-600 hover:text-sky-500 transition-colors"
+                            className="p-2 relative text-primary hover:text-accent transition-colors"
                         >
-                            <ShoppingCart className="w-6 h-6" />
+                            <ShoppingCart className="w-5 h-5" />
                             {totalItems > 0 && (
-                                <span className="absolute top-0 right-0 bg-sky-500 text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-bold">
+                                <span className="absolute -top-1 -right-1 bg-accent text-white text-[9px] w-4 h-4 rounded-full flex items-center justify-center font-bold">
                                     {totalItems}
                                 </span>
                             )}
                         </button>
+                        <button
+                            className="md:hidden p-2 text-primary"
+                            onClick={() => setIsMenuOpen(!isMenuOpen)}
+                        >
+                            {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+                        </button>
                     </div>
                 </div>
+
+                {/* Mobile Menu */}
+                {isMenuOpen && (
+                    <motion.div
+                        initial={{ opacity: 0, y: -20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className="md:hidden bg-white border-b border-border p-6 flex flex-col gap-4 text-center uppercase tracking-widest text-sm font-bold"
+                    >
+                        <Link href="/" onClick={() => setIsMenuOpen(false)}>Home</Link>
+                        <Link href="/#products" onClick={() => setIsMenuOpen(false)}>Collection</Link>
+                        <Link href="/#story" onClick={() => setIsMenuOpen(false)}>Our Story</Link>
+                        <Link href="/contact" onClick={() => setIsMenuOpen(false)}>Contact</Link>
+                    </motion.div>
+                )}
             </nav>
 
-            <main className="pt-32 pb-20">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="text-center mb-16">
-                        <h1 className="text-4xl lg:text-5xl font-extrabold text-slate-900 mb-4">Get in Touch</h1>
-                        <p className="text-lg text-slate-600 max-w-2xl mx-auto">
-                            Have questions about our products or services? Our team is here to help you 24/7.
-                        </p>
-                    </div>
+            <main className="pt-40 pb-32 lg:pt-52 lg:pb-48">
+                <div className="max-w-7xl mx-auto px-6 lg:px-12">
+                    <div className="flex flex-col lg:flex-row gap-24">
+                        {/* Header & Info */}
+                        <div className="lg:w-1/3">
+                            <motion.div
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.8 }}
+                            >
+                                <span className="text-[11px] uppercase tracking-[0.3em] font-bold text-accent mb-6 block">Concierge</span>
+                                <h1 className="text-5xl lg:text-6xl font-serif text-primary mb-10 leading-tight font-bold">Connect with <br /><span className="italic text-accent">Our Team.</span></h1>
+                                <p className="text-primary/70 leading-relaxed font-bold mb-16">
+                                    Our dedicated specialists are available to assist you with any inquiries regarding our collection and services.
+                                </p>
 
-                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
-                        {/* Contact Info */}
-                        <div className="lg:col-span-1 space-y-8">
-                            <div className="bg-white p-8 rounded-3xl shadow-sm border border-slate-100">
-                                <div className="w-12 h-12 bg-sky-50 rounded-xl flex items-center justify-center mb-6">
-                                    <MapPin className="text-sky-500 w-6 h-6" />
+                                <div className="space-y-12">
+                                    <div className="flex items-start gap-6">
+                                        <div className="text-accent font-serif italic text-xl font-bold">A.</div>
+                                        <div>
+                                            <h4 className="text-[10px] uppercase tracking-widest font-bold text-primary/40 mb-2">Location</h4>
+                                            <p className="text-sm text-primary/70 font-bold">515 N Glendale CA 91206, USA</p>
+                                        </div>
+                                    </div>
+                                    <div className="flex items-start gap-6">
+                                        <div className="text-accent font-serif italic text-xl font-bold">E.</div>
+                                        <div>
+                                            <h4 className="text-[10px] uppercase tracking-widest font-bold text-primary/40 mb-2">Inquiries</h4>
+                                            <p className="text-sm text-primary/70 font-bold">support@epharmacare.shop</p>
+                                        </div>
+                                    </div>
+                                    <div className="flex items-start gap-6">
+                                        <div className="text-accent font-serif italic text-xl font-bold">T.</div>
+                                        <div>
+                                            <h4 className="text-[10px] uppercase tracking-widest font-bold text-primary/40 mb-2">Direct</h4>
+                                            <p className="text-sm text-primary/70 font-bold">+1 (518) 300 1106</p>
+                                        </div>
+                                    </div>
                                 </div>
-                                <h3 className="text-xl font-bold text-slate-900 mb-2">Our Location</h3>
-                                <p className="text-slate-600">515 N Glendale CA 91206, USA</p>
-                            </div>
-
-                            <div className="bg-white p-8 rounded-3xl shadow-sm border border-slate-100">
-                                <div className="w-12 h-12 bg-sky-50 rounded-xl flex items-center justify-center mb-6">
-                                    <Mail className="text-sky-500 w-6 h-6" />
-                                </div>
-                                <h3 className="text-xl font-bold text-slate-900 mb-2">Email Us</h3>
-                                <p className="text-slate-600">support@epharmacare.shop</p>
-                            </div>
-
-                            <div className="bg-white p-8 rounded-3xl shadow-sm border border-slate-100">
-                                <div className="w-12 h-12 bg-sky-50 rounded-xl flex items-center justify-center mb-6">
-                                    <Phone className="text-sky-500 w-6 h-6" />
-                                </div>
-                                <h3 className="text-xl font-bold text-slate-900 mb-2">Call Us</h3>
-                                <p className="text-slate-600">+1 (518) 300 1106</p>
-                            </div>
+                            </motion.div>
                         </div>
 
-                        {/* Contact Form */}
-                        <div className="lg:col-span-2">
-                            <div className="bg-white p-8 lg:p-12 rounded-3xl shadow-lg border border-slate-100">
+                        {/* Form */}
+                        <div className="lg:w-2/3">
+                            <motion.div
+                                initial={{ opacity: 0, scale: 0.98 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+                                className="bg-white p-10 lg:p-16 rounded-2xl border border-border/40 shadow-2xl"
+                            >
                                 {submitted ? (
-                                    <div className="text-center py-12">
-                                        <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                                            <ShieldCheck className="text-green-600 w-10 h-10" />
+                                    <div className="text-center py-20">
+                                        <div className="w-16 h-16 bg-accent/10 rounded-full flex items-center justify-center mx-auto mb-8">
+                                            <ShieldCheck className="text-accent w-8 h-8" />
                                         </div>
-                                        <h2 className="text-3xl font-bold text-slate-900 mb-4">Message Sent!</h2>
-                                        <p className="text-slate-600 mb-8">
-                                            Thank you for reaching out. We have received your message and will get back to you shortly.
+                                        <h2 className="text-3xl font-serif text-primary mb-4 font-bold">Message Received.</h2>
+                                        <p className="text-primary/50 font-bold mb-10 max-w-sm mx-auto">
+                                            Thank you for reaching out. A specialist will review your inquiry and respond shortly.
                                         </p>
                                         <button
                                             onClick={() => setSubmitted(false)}
-                                            className="text-sky-500 font-bold hover:underline"
+                                            className="text-[11px] uppercase tracking-widest font-bold text-accent hover:text-primary transition-colors"
                                         >
                                             Send another message
                                         </button>
                                     </div>
                                 ) : (
-                                    <form onSubmit={handleSubmit} className="space-y-6">
-                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                            <div>
-                                                <label className="block text-sm font-bold text-slate-700 mb-2">Full Name</label>
+                                    <form onSubmit={handleSubmit} className="space-y-10">
+                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+                                            <div className="space-y-3">
+                                                <label className="text-[10px] uppercase tracking-widest font-bold text-primary/40">Full Name</label>
                                                 <input
                                                     required
                                                     type="text"
-                                                    className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all outline-none"
-                                                    placeholder="John Doe"
+                                                    className="w-full bg-transparent border-b border-border/60 py-3 text-sm focus:border-accent outline-none transition-colors font-bold text-primary"
+                                                    placeholder="Enter your name"
                                                 />
                                             </div>
-                                            <div>
-                                                <label className="block text-sm font-bold text-slate-700 mb-2">Email Address</label>
+                                            <div className="space-y-3">
+                                                <label className="text-[10px] uppercase tracking-widest font-bold text-primary/40">Email Address</label>
                                                 <input
                                                     required
                                                     type="email"
-                                                    className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all outline-none"
-                                                    placeholder="john@example.com"
+                                                    className="w-full bg-transparent border-b border-border/60 py-3 text-sm focus:border-accent outline-none transition-colors font-bold text-primary"
+                                                    placeholder="Enter your email"
                                                 />
                                             </div>
                                         </div>
-                                        <div>
-                                            <label className="block text-sm font-bold text-slate-700 mb-2">Subject</label>
+                                        <div className="space-y-3">
+                                            <label className="text-[10px] uppercase tracking-widest font-bold text-primary/40">Subject</label>
                                             <input
                                                 required
                                                 type="text"
-                                                className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all outline-none"
-                                                placeholder="How can we help?"
+                                                className="w-full bg-transparent border-b border-border/60 py-3 text-sm focus:border-accent outline-none transition-colors font-bold text-primary"
+                                                placeholder="What is this regarding?"
                                             />
                                         </div>
-                                        <div>
-                                            <label className="block text-sm font-bold text-slate-700 mb-2">Message</label>
+                                        <div className="space-y-3">
+                                            <label className="text-[10px] uppercase tracking-widest font-bold text-primary/40">Message</label>
                                             <textarea
                                                 required
-                                                rows={6}
-                                                className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all outline-none resize-none"
-                                                placeholder="Your message here..."
+                                                rows={5}
+                                                className="w-full bg-transparent border-b border-border/60 py-3 text-sm focus:border-accent outline-none transition-colors font-bold text-primary resize-none"
+                                                placeholder="How can we assist you?"
                                             ></textarea>
                                         </div>
                                         <button
                                             disabled={isSubmitting}
                                             type="submit"
-                                            className="w-full py-4 bg-sky-500 text-white rounded-xl font-bold hover:bg-sky-600 transition-all shadow-lg shadow-sky-200 flex items-center justify-center gap-2 disabled:opacity-70"
+                                            className="group flex items-center gap-4 text-[11px] uppercase tracking-[0.3em] font-bold text-primary disabled:opacity-50"
                                         >
-                                            {isSubmitting ? (
-                                                "Sending..."
-                                            ) : (
-                                                <>
-                                                    Send Message
-                                                    <Send className="w-5 h-5" />
-                                                </>
-                                            )}
+                                            {isSubmitting ? "Processing..." : "Send Message"}
+                                            <div className="w-12 h-[2px] bg-primary/20 group-hover:w-16 group-hover:bg-accent transition-all duration-500" />
                                         </button>
                                     </form>
                                 )}
-                            </div>
+                            </motion.div>
                         </div>
                     </div>
                 </div>
             </main>
 
             {/* Footer */}
-            <footer className="bg-slate-900 text-white py-20">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
-                        <div className="col-span-1 md:col-span-2">
-                            <div className="flex items-center gap-2 mb-6">
-                                <div className="w-10 h-10 bg-sky-500 rounded-lg flex items-center justify-center">
-                                    <ShieldCheck className="text-white w-6 h-6" />
+            <footer className="bg-primary text-white pt-32 pb-16">
+                <div className="max-w-7xl mx-auto px-6 lg:px-12">
+                    <div className="grid grid-cols-1 md:grid-cols-12 gap-16 mb-24">
+                        <div className="md:col-span-5">
+                            <div className="flex items-center gap-3 mb-10">
+                                <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center">
+                                    <ShieldCheck className="text-primary w-5 h-5" />
                                 </div>
-                                <span className="text-2xl font-bold">E Pharma Care</span>
+                                <span className="text-2xl font-serif font-bold tracking-tight">E Pharma Care</span>
                             </div>
-                            <p className="text-slate-400 max-w-md mb-8">
-                                Your trusted partner for quality pharmaceutical products. We prioritize your health and privacy above all else.
+                            <p className="text-white/50 max-w-sm leading-relaxed font-bold text-sm mb-12">
+                                A modern standard in pharmaceutical excellence. We blend clinical precision with a luxury service experience to support your journey to optimal health.
                             </p>
                         </div>
-                        <div>
-                            <h4 className="text-lg font-bold mb-6">Quick Links</h4>
-                            <ul className="space-y-4 text-slate-400">
-                                <li><Link href="/" className="hover:text-sky-500 transition-colors">Home</Link></li>
-                                <li><Link href="/#products" className="hover:text-sky-500 transition-colors">Shop</Link></li>
-                                <li><Link href="/contact" className="hover:text-sky-500 transition-colors">Contact</Link></li>
+
+                        <div className="md:col-span-2 md:col-start-7">
+                            <h4 className="text-[11px] uppercase tracking-[0.2em] font-bold text-accent mb-8">Navigation</h4>
+                            <ul className="space-y-4 text-sm text-white/60 font-bold">
+                                <li><Link href="/" className="hover:text-white transition-colors">Home</Link></li>
+                                <li><Link href="/#products" className="hover:text-white transition-colors">Collection</Link></li>
+                                <li><Link href="/#story" className="hover:text-white transition-colors">Our Story</Link></li>
+                                <li><Link href="/contact" className="hover:text-white transition-colors">Contact</Link></li>
                             </ul>
                         </div>
-                        <div>
-                            <h4 className="text-lg font-bold mb-6">Contact Us</h4>
-                            <ul className="space-y-4 text-slate-400">
-                                <li className="flex items-start gap-3">
-                                    <MapPin className="w-5 h-5 text-sky-500 mt-1" />
+
+                        <div className="md:col-span-4">
+                            <h4 className="text-[11px] uppercase tracking-[0.2em] font-bold text-accent mb-8">Concierge</h4>
+                            <ul className="space-y-4 text-sm text-white/60 font-bold">
+                                <li className="flex items-start gap-4">
+                                    <span className="text-accent">A.</span>
                                     <span>515 N Glendale CA 91206, USA</span>
                                 </li>
-                                <li>support@epharmacare.shop</li>
-                                <li>+1 (518) 300 1106</li>
+                                <li className="flex items-start gap-4">
+                                    <span className="text-accent">E.</span>
+                                    <span>support@epharmacare.shop</span>
+                                </li>
+                                <li className="flex items-start gap-4">
+                                    <span className="text-accent">T.</span>
+                                    <span>+1 (518) 300 1106</span>
+                                </li>
                             </ul>
                         </div>
                     </div>
-                    <div className="pt-8 border-t border-slate-800 text-center text-slate-500 text-sm">
-                        <p>© 2025 E Pharma Care. All rights reserved.</p>
+
+                    <div className="pt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6">
+                        <p className="text-[11px] uppercase tracking-widest text-white/30 font-bold">© 2025 E Pharma Care. All rights reserved.</p>
+                        <div className="flex gap-8 text-[11px] uppercase tracking-widest text-white/30 font-bold">
+                            <Link href="#" className="hover:text-white transition-colors">Privacy</Link>
+                            <Link href="#" className="hover:text-white transition-colors">Terms</Link>
+                        </div>
                     </div>
                 </div>
             </footer>
