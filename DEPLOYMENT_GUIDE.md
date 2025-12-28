@@ -1,8 +1,14 @@
-# Vercel Deployment & Domain Guide
+This guide explains how to deploy your **E Pharma Care** site. 
 
-This guide explains how to deploy your **E Pharma Care** site to Vercel and connect your custom domain.
+> [!IMPORTANT]
+> **Next.js vs WordPress**: This website is built using **Next.js** (a modern React framework), which is different from **WordPress**. You cannot "upload" this code into a WordPress dashboard. Instead, you host it on a platform like **Vercel**, which is much faster and more secure for this type of custom application.
 
-## 1. Deploying to Vercel
+## 1. Why not WordPress?
+- **Speed**: Next.js sites are significantly faster than WordPress.
+- **Security**: There are no plugins to hack; the site is "static" and highly secure.
+- **Customization**: This site has custom features (like the cart and slider) that are easier to maintain in Next.js.
+
+## 2. Deploying to Vercel (The Best Way)
 
 ### Option A: Using the Vercel CLI (Recommended for local dev)
 1. Open your terminal in the project directory.

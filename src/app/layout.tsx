@@ -17,6 +17,9 @@ export const metadata: Metadata = {
   }
 };
 
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -24,9 +27,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="font-sans antialiased">
+      <body className={`${inter.className} antialiased`} suppressHydrationWarning>
         <CartProvider>
+          <Header />
           {children}
+          <Footer />
         </CartProvider>
       </body>
     </html>

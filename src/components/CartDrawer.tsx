@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, ShoppingCart, Trash2, ShieldCheck } from "lucide-react";
 import { useCart } from "@/lib/cart-context";
@@ -52,8 +53,13 @@ export default function CartDrawer({ isOpen, onClose }: { isOpen: boolean; onClo
                                 <div className="space-y-10">
                                     {cart.map((item) => (
                                         <div key={item.id} className="flex gap-6 group">
-                                            <div className="w-24 h-32 bg-secondary rounded-sm overflow-hidden flex-shrink-0">
-                                                <img src={item.image} alt={item.name} className="w-full h-full object-cover" />
+                                            <div className="w-24 h-32 bg-secondary rounded-sm overflow-hidden flex-shrink-0 relative">
+                                                <Image
+                                                    src={item.image}
+                                                    alt={item.name}
+                                                    fill
+                                                    className="object-cover"
+                                                />
                                             </div>
                                             <div className="flex-1 flex flex-col justify-between py-1">
                                                 <div>
