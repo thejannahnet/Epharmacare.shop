@@ -1,0 +1,220 @@
+{
+    "site": {
+        "title": "Southampton Summer Programme 2024",
+        "url": "https://www.southamptonsummer2024.com",
+        "brandName": "Southampton Summer Programme"
+    },
+    "author": {
+        "name": "Rana Tariq Anwar",
+        "role": "Director – Business Development (Punjab, Pakistan, UAE & Canada)",
+        "email": "rana.tariq1221@gmail.com",
+        "phone": "+923006888824"
+    },
+    "navigation": [
+        {
+            "label": "Home",
+            "to": "hero"
+        },
+        {
+            "label": "About",
+            "to": "overview"
+        },
+        {
+            "label": "Location",
+            "to": "location"
+        },
+        {
+            "label": "School",
+            "to": "school"
+        },
+        {
+            "label": "Accommodation",
+            "to": "accommodation"
+        },
+        {
+            "label": "Trips",
+            "to": "trips"
+        },
+        {
+            "label": "Timetable",
+            "to": "timetable"
+        },
+        {
+            "label": "Apply",
+            "to": "apply"
+        }
+    ],
+    "hero": {
+        "title": "Discover Southampton – Your Summer Adventure",
+        "subtitle": "Ages 11‑25 | Homestay | Full‑time English + Cultural Immersion",
+        "cta": "Explore the Programme",
+        "scrollTarget": "overview"
+    },
+    "footer": {
+        "text": "English language immersion and cultural adventure for ages 11‑25.",
+        "copyright": "© 2024 Southampton Summer Programme. All rights reserved."
+    },
+    "overview": {
+        "heading": "Key Facts",
+        "items": [
+            {
+                "label": "Location",
+                "value": "City centre, opposite a large park"
+            },
+            {
+                "label": "Duration",
+                "value": "Minimum 2 weeks (flexible extensions available)"
+            },
+            {
+                "label": "Programme",
+                "value": "Full‑time English tuition + weekly cultural trips + evening activities"
+            },
+            {
+                "label": "Accommodation",
+                "value": "Homestay (twin room)"
+            },
+            {
+                "label": "Weekly Trips",
+                "value": "1 full‑day + 1 half‑day + 1 local visit + optional Sunday trip (extra fee)"
+            },
+            {
+                "label": "Distance from Airports",
+                "value": "Southampton (SOU) 6 km • London Heathrow (LHR) 110 km • London Gatwick (LGW) 140 km • London Stansted (STN) 195 km"
+            }
+        ]
+    },
+    "about": {
+        "heading": "Meet the Director",
+        "name": "Rana Tariq Anwar",
+        "role": "Director – Business Development",
+        "regions": "Punjab, Pakistan, UAE & Canada",
+        "bio": [
+            "Rana Tariq Anwar brings over two decades of experience in international education and student recruitment across South Asia, the Middle East, and North America. As Director of Business Development for the Southampton Summer Programme, he is dedicated to connecting young learners with transformative study‑abroad experiences in the United Kingdom.",
+            "With a deep understanding of the cultural and academic aspirations of families in Pakistan, the UAE, and Canada, Tariq personally oversees every stage of the enrolment journey — from initial enquiry to airport pickup — ensuring a smooth, supportive experience for every student and parent."
+        ],
+        "highlights": [
+            "20+ years in international education",
+            "Regional offices in Lahore, Dubai & Toronto",
+            "Personally guided 500+ students to UK programmes",
+            "Fluent in English, Urdu & Punjabi",
+            "Direct liaison with host families and school staff"
+        ]
+    },
+    "location": {
+        "heading": "Welcome to Southampton",
+        "paragraphs": [
+            "Southampton is a vibrant university city on the south coast of England (population ≈ 250 000). Famous for its maritime heritage—the Titanic sailed from here, and today the city is known as the 'cruise‑ship capital' of the UK. With two universities, a Premier League football team, over 50 parks, and a lively high‑street, Southampton offers a perfect blend of modernity and history.",
+            "The city is only 75 minutes by train from London and within easy reach of Oxford, Bath, the Isle of Wight, and many other English treasures."
+        ],
+        "highlights": [
+            "WestQuay Shopping Centre",
+            "Watermark – £85 m restaurant and entertainment hub",
+            "SeaCity Museum (Titanic exhibition)",
+            "Tudor House Museum",
+            "Large, beautiful city‑centre parks"
+        ]
+    },
+    "school": {
+        "heading": "Our School",
+        "description": "Founded in 1976, our English language school welcomes students from more than 50 countries each year. We operate from four historic 18th‑century buildings centred around a tranquil garden.",
+        "features": [
+            "15 modern classrooms",
+            "Computer room with free Wi‑Fi",
+            "Garden with table‑tennis",
+            "Coffee room with snacks & drinks machine",
+            "Prayer room",
+            "Convenient city‑centre location (just minutes from shops & bus stops)"
+        ]
+    },
+    "accommodation": {
+        "heading": "Homestay Accommodation",
+        "description": "All students stay with carefully selected host families in comfortable twin‑room homestays. Hosts provide a safe, welcoming environment and an authentic British lifestyle.",
+        "features": [
+            "Private twin bedroom",
+            "Meals (breakfast & dinner) with host family",
+            "Wi‑Fi in the house",
+            "Weekly evening activities with other homestay students (Wednesdays, Fridays, Saturdays)",
+            "Support from a dedicated homestay coordinator"
+        ]
+    },
+    "trips": {
+        "heading": "Weekly Trips & Activities",
+        "paragraphs": [
+            "Our weekly schedule blends English lessons with themed excursions designed to deepen cultural understanding and boost confidence in speaking.",
+            "Activities range from treasure hunts and team challenges to music, drama, and sport. Every outing is preceded by classroom sessions that teach the relevant vocabulary, ensuring a richer experience."
+        ],
+        "items": [
+            "1 full‑day educational trip (e.g., museum, historic site)",
+            "1 half‑day trip (e.g., coastal walk, local market)",
+            "1 local visit each week (city park, community event)",
+            "Optional Sunday trip (extra fee) – explore nearby attractions"
+        ]
+    },
+    "timetable": {
+        "heading": "Sample Weekly Timetable",
+        "headers": [
+            "Day",
+            "Morning (9‑12)",
+            "Afternoon (13‑16)",
+            "Evening (17‑20)"
+        ],
+        "rows": [
+            {
+                "day": "Sunday",
+                "morning": "Arrival / Departure (optional full‑day trip)",
+                "afternoon": "Day with host family (optional extra trip)",
+                "evening": "Free / family dinner"
+            },
+            {
+                "day": "Monday",
+                "morning": "Placement test / 1st lesson",
+                "afternoon": "English lessons (3 hrs) + Welcome city tour",
+                "evening": "Homestay evening activity"
+            },
+            {
+                "day": "Tuesday",
+                "morning": "English lessons (3 hrs)",
+                "afternoon": "Local visit (e.g., park, museum)",
+                "evening": "Homestay evening activity"
+            },
+            {
+                "day": "Wednesday",
+                "morning": "English lessons (3 hrs)",
+                "afternoon": "Half‑day trip (themed)",
+                "evening": "Homestay evening activity"
+            },
+            {
+                "day": "Thursday",
+                "morning": "English lessons (3 hrs)",
+                "afternoon": "Free – optional study time",
+                "evening": "Homestay evening activity"
+            },
+            {
+                "day": "Friday",
+                "morning": "English lessons (3 hrs)",
+                "afternoon": "Full‑day trip (e.g., Oxford, Bath)",
+                "evening": "Homestay evening activity"
+            },
+            {
+                "day": "Saturday",
+                "morning": "English lessons (3 hrs)",
+                "afternoon": "Packed lunch + Activity (sports, drama)",
+                "evening": "Homestay evening activity"
+            }
+        ]
+    },
+    "apply": {
+        "heading": "Secure Your Place – Apply Now",
+        "description": "Spaces are limited. Fill in the form below and a member of our team will contact you with next steps and payment information."
+    },
+    "contact": {
+        "phone": "+923006888824",
+        "email": "rana.tariq1221@gmail.com",
+        "address": "Southampton Summer Programme, United Kingdom"
+    },
+    "social": {
+        "facebook": "https://facebook.com/SouthamptonSummer2024",
+        "twitter": "https://twitter.com/Southampton2024",
+        "instagram": "https://instagram.com/southampton_summer"
+    }
+}
