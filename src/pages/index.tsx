@@ -10,7 +10,7 @@ import ScrollToTopButton from "@/components/ScrollToTopButton";
 import { fadeInUp, slideUp } from "@/hooks/useScrollAnimation";
 import data from "@/data/resume.json";
 import {
-  HiLocationMarker, HiCalendar, HiUserGroup, HiHome,
+  HiLocationMarker, HiHome,
   HiMap, HiClock, HiAcademicCap, HiDesktopComputer,
   HiStar, HiGlobeAlt, HiCheckCircle, HiShieldCheck,
   HiBadgeCheck, HiBookOpen
@@ -82,7 +82,7 @@ export default function Home() {
                 <div className="absolute -inset-1 bg-gradient-to-br from-primary-500 to-accent-400 rounded-2xl" />
                 <Image
                   src="/images/tariq-anwar.jpg"
-                  alt={`${(data as any).about.name} – Director`}
+                  alt={`${data.about.name} – Director`}
                   width={450}
                   height={550}
                   className="relative rounded-2xl object-cover object-top w-full max-w-[400px] h-auto shadow-2xl"
@@ -95,28 +95,28 @@ export default function Home() {
           {/* Bio content */}
           <div>
             <motion.div variants={slideUp}>
-              <p className="text-sm font-bold text-accent-500 tracking-widest uppercase mb-2">{(data as any).about.regions}</p>
+              <p className="text-sm font-bold text-accent-500 tracking-widest uppercase mb-2">{data.about.regions}</p>
               <h2 className="text-3xl sm:text-4xl font-bold text-dark-900 dark:text-white mb-1">
-                {(data as any).about.heading.split(" ")[0]}{" "}
-                <span className="gradient-text">{(data as any).about.heading.split(" ").slice(1).join(" ")}</span>
+                {data.about.heading.split(" ")[0]}{" "}
+                <span className="gradient-text">{data.about.heading.split(" ").slice(1).join(" ")}</span>
               </h2>
-              <p className="text-xl font-semibold text-primary-500 mb-1">{(data as any).about.name}</p>
-              <p className="text-sm text-dark-400 font-medium mb-6">{(data as any).about.role}</p>
+              <p className="text-xl font-semibold text-primary-500 mb-1">{data.about.name}</p>
+              <p className="text-sm text-dark-400 font-medium mb-6">{data.about.role}</p>
               <div className="w-20 h-1 bg-gradient-to-r from-primary-500 to-accent-400 rounded-full mb-6" />
             </motion.div>
 
-            {(data as any).about.bio.map((p: string, i: number) => (
+            {data.about.bio.map((p: string, i: number) => (
               <motion.p key={i} variants={fadeInUp} className="text-dark-600 dark:text-dark-300 leading-relaxed mb-4">
                 {p}
               </motion.p>
             ))}
 
             <motion.div variants={fadeInUp} className="mt-6 space-y-3">
-              {(data as any).about.highlights.map((h: string, i: number) => (
+              {data.about.highlights.map((h: string, i: number) => (
                 <div key={h} className="flex items-center gap-3">
                   <div className={`p-2 rounded-lg shrink-0 ${i % 2 === 0
-                      ? "bg-primary-100 dark:bg-primary-900/30 text-primary-500"
-                      : "bg-accent-100 dark:bg-accent-900/30 text-accent-600"
+                    ? "bg-primary-100 dark:bg-primary-900/30 text-primary-500"
+                    : "bg-accent-100 dark:bg-accent-900/30 text-accent-600"
                     }`}>
                     <HiBadgeCheck className="w-4 h-4" />
                   </div>

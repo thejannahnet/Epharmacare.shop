@@ -1,7 +1,5 @@
-import { useEffect } from "react";
-import { useAnimation, type AnimationControls, type Variants } from "framer-motion";
-import { useInView } from "framer-motion";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
+import { useAnimation, useInView, type Variants } from "framer-motion";
 
 export const fadeInUp: Variants = {
     hidden: { opacity: 0, y: 40 },
@@ -49,8 +47,10 @@ export const scaleIn: Variants = {
     },
 };
 
+type AnimationControls = ReturnType<typeof useAnimation>;
+
 interface UseScrollAnimationReturn {
-    ref: React.RefObject<HTMLDivElement | null>;
+    ref: React.RefObject<HTMLDivElement>;
     controls: AnimationControls;
     isInView: boolean;
 }
